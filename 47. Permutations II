@@ -1,0 +1,32 @@
+Q. No. -> 47. Permutations II
+Ans->
+class Solution {
+public:
+   void solve(vector<int>& nums,vector<vector<int>>& output, int i){
+       if( i>=nums.size()){
+         output.push_back(nums);
+         return ;
+       }
+       // most important.. loop should be started from j =i..
+       for(int j=i;j<nums.size();j++){
+           swap(nums[i],nums[j]);
+           solve(nums,output,i+1);
+           //backtracking..
+           swap(nums[i],nums[j]);
+
+       }
+   }
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+       vector<vector<int>> output;
+       solve(nums,output,0);
+        set<vector<int>>checking;
+        for( auto i : output){
+            checking.insert(i);
+        }
+       vector<vector<int>> result;
+        for( auto i : checking){
+            result.push_back(i);
+        }
+        return result;
+    }
+};
